@@ -1,0 +1,29 @@
+{
+  "name": "ax-test-flagsmith2",
+  "version": "1.0.0",
+  "description": "Feature Flag Service with API and Dashboard",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test test/unit/*.test.js",
+    "test:integration": "node --test test/integration/*.test.js",
+    "test:scenarios": "node --test test/scenarios/*.test.js",
+    "test:all": "npm test && npm run test:integration && npm run test:scenarios",
+    "lint": "echo 'No linter configured'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shootdaj/ax-test-flagsmith2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/shootdaj/ax-test-flagsmith2/issues"
+  },
+  "homepage": "https://github.com/shootdaj/ax-test-flagsmith2#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
