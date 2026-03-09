@@ -41,6 +41,12 @@
       "title": "Core API & Storage",
       "started_at": "2026-03-10T12:01:00Z",
       "completed_at": "2026-03-10T12:10:00Z"
+    },
+    {
+      "phase": 2,
+      "title": "Environment Scoping & Evaluation",
+      "started_at": "2026-03-10T12:11:00Z",
+      "completed_at": "2026-03-10T12:15:00Z"
     }
   ],
   "milestone_history": [],
