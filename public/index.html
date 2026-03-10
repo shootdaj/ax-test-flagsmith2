@@ -4,17 +4,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feature Flag Service</title>
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
-        .container { max-width: 800px; margin: 0 auto; }
-        h1 { color: #333; }
-        p { color: #666; }
-    </style>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Feature Flag Service</h1>
-        <p>Dashboard coming soon. API is available at <code>/api/flags</code>.</p>
-    </div>
+    <header>
+        <div class="header-content">
+            <h1>Feature Flags</h1>
+            <div class="header-actions">
+                <div class="env-switcher">
+                    <label for="env-select">Environment:</label>
+                    <select id="env-select">
+                        <option value="dev">Dev</option>
+                        <option value="staging">Staging</option>
+                        <option value="production">Production</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" onclick="showCreateForm()">+ New Flag</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Create/Edit Form (hidden by default) -->
+        <div id="flag-form" class="card form-card" style="display:none;">
+            <h2 id="form-title">Create Flag</h2>
+            <form onsubmit="saveFlag(event)">
+                <input type="hidden" id="flag-id" value="">
+                <div class="form-group">
+                    <label for="flag-name">Name</label>
+                    <input type="text" id="flag-name" required placeholder="e.g. dark-mode">
+                </div>
+                <div class="form-group">
+                    <label for="flag-desc">Description</label>
+                    <input type="text" id="flag-desc" placeholder="What does this flag control?">
+                </div>
+                <div class="form-group">
+                    <label>Environments</label>
+                    <div class="env-toggles">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="env-dev"> Dev
+                        </label>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="env-staging"> Staging
+                        </label>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="env-prod"> Production
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="flag-percentage">Percentage Rollout</label>
+                    <div class="range-group">
+                        <input type="range" id="flag-percentage" min="0" max="100" value="100">
+                        <span id="percentage-value">100%</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="flag-allowlist">Allowlist (comma-separated user IDs)</label>
+                    <input type="text" id="flag-allowlist" placeholder="user1, user2, user3">
+                </div>
+                <div class="form-group">
+                    <label for="flag-blocklist">Blocklist (comma-separated user IDs)</label>
+                    <input type="text" id="flag-blocklist" placeholder="blocked1, blocked2">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" onclick="hideForm()">Cancel</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Flag List -->
+        <div id="flag-list" class="flag-list">
+            <div class="loading">Loading flags...</div>
+        </div>
+
+        <!-- Analytics Modal -->
+        <div id="analytics-modal" class="modal" style="display:none;">
+            <div class="modal-content card">
+                <div class="modal-header">
+                    <h2 id="analytics-title">Flag Analytics</h2>
+                    <button class="btn-close" onclick="closeAnalytics()">&times;</button>
+                </div>
+                <div id="analytics-content" class="analytics-content">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <span>API Key: <code id="api-key-display">loading...</code></span>
+            <button class="btn btn-small" onclick="copyApiKey()">Copy</button>
+        </div>
+    </footer>
+
+    <script src="/app.js"></script>
 </body>
 </html>
